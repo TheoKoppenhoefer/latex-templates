@@ -1,2 +1,2 @@
 # latex-templates
-Templates for LaTex
+This repository contains templates for LaTex.
