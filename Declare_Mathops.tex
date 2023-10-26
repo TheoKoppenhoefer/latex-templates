@@ -24,6 +24,12 @@
 \usepackage{centernot}
 
 
+% Annotation
+\usepackage{todonotes}
+\newcommand{\ruggedtodo}[2][]{\tikzexternaldisable\todo[#1]{#2}\tikzexternalenable}
+\newcommand\todoin[2][]{\ruggedtodo[inline, caption={2do}, #1]{
+\begin{minipage}{\textwidth-4pt}#2\end{minipage}}}
+
 % code
 %\usepackage{listings}
 %\usepackage{pythonhighlight}
@@ -42,6 +48,7 @@
 
 % dealing with figures
 %\usepackage[figurename=Abb.]{caption}
+\usepackage{caption}
 \usepackage{subcaption}
 \usepackage{wrapfig}
 
@@ -113,6 +120,24 @@
 
 %\usepgfplotslibrary{grouplots}
 \usepgfplotslibrary{dateplot}
+\pgfplotsset{
+	compat=newest,
+    every axis/.append style={
+        axis y line=left,
+        axis x line=bottom,
+        scale only axis,
+        % line width=2pt,
+%    	max space between ticks=25pt,
+        width=0.7\textwidth,
+        scaled ticks=true,
+        axis line style={thick,-,>=latex, shorten >=-.4cm},
+    		x tick label style={
+		    /pgf/number format/precision=3
+		    }
+    },
+    every axis plot/.append style={very thick},
+    tick style={black, thick},    
+}
 
 
 %%%%% CUSTOM COMMANDS
@@ -222,6 +247,9 @@
 \newcommand{\ABV}{\mathcal{ABV\!}}
 
 
+\newcommand{\iu}{\mathrm{i}} % optionally followed by \mkern1mu
+
+
 
 %%%%%%%%%%    Math operators    %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -268,6 +296,8 @@
 \DeclareMathOperator{\closure}{cl}
 \DeclareMathOperator{\exterior}{ext}
 \DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\curl}{curl}       % curl, rot
+\DeclareMathOperator{\Curl}{Curl}       % curl, rot
 %\DeclareMathOperator{\B}{B}			% BMO
 
 
@@ -302,13 +332,8 @@
 
 
 %%%%%% TITLE PAGE
-%
-%\subject{Specialised Course in Integration Theory, VT23}
-%\title{Assignment Chapter 3.5}
-%\author{Theo Koppenhöfer}
-%\date{\today}
-%
-%
+
+
 %%%%%% The content starts here %%%%%%%%%%%%%
 %
 %
