@@ -1,0 +1,47 @@
+% 
+%
+%% Public domain. Originally written by Theo Koppenhöfer 
+% 
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{theoremEnvironments}[2024/03/17]
+
+\RequirePackage{amsthm}
+
+% theorem-like environments
+% \newcounter{everything}
+\theoremstyle{plain}
+\@ifclassloaded{beamer}{}{
+  \newtheorem{theorem}{Theorem}[chapter]
+  \newtheorem{corollary}[theorem]{Corollary}
+  \newtheorem{lemma}[theorem]{Lemma}
+  \newtheorem{definition}[theorem]{Definition}
+}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{criteria}[theorem]{Criteria}
+
+\theoremstyle{definition}
+\newtheorem{condition}[theorem]{Condition}
+\@ifclassloaded{beamer}{}{
+  \newtheorem{problem}[theorem]{Problem}
+  \newtheorem{example}[theorem]{Example}
+}
+\newtheorem{Exercise}[theorem]{Exercise}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{answer}[theorem]{Answer}
+
+\theoremstyle{remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{remark}{Remark}
+\@ifclassloaded{beamer}{}{
+  \newtheorem*{note}{Note}
+}
+\newtheorem*{notation}{Notation}
+\newtheorem*{summary}{Summary}
+\newtheorem*{case}{Case}
+\newtheorem*{conclusion}{Conclusion}
+\newtheorem*{acknowledgement}{Acknowledgement}
+\newtheorem*{given}{Given}
+
+\endinput

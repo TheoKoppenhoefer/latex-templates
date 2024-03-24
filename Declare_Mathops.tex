@@ -5,6 +5,7 @@
 % small tweaks and nicer typography
 \usepackage{microtype}
 \usepackage{hyperref}
+\usepackage{parskip}
 
 % changes language to German
 % gives proper date, and correct hyphenation
@@ -19,16 +20,23 @@
 %\usepackage{tikz-cd}
 \usepackage{cancel}
 \usepackage{cases}
+% \usepackage{faktor} % quotient
 \usepackage{dsfont}
 \usepackage[extdef]{delimset} % for nice delimiters
 \usepackage{centernot}
 
 
-% Annotation
-\usepackage{todonotes}
+% Annotation with todonotes
+% The following was inspired by Thomas Renström
+\usepackage[colorinlistoftodos]{todonotes}
 \newcommand{\ruggedtodo}[2][]{\tikzexternaldisable\todo[#1]{#2}\tikzexternalenable}
+\newcommand{\td}[1]{\ruggedtodo[inline]{#1}}
+\newcommand{\tdref}[1]{\ruggedtodo[inline, color=blue!40]{Ref: #1}}
+\newcommand{\tdrewrite}[1]{\ruggedtodo[inline, color=red!40]{Rewrite: #1}}
+\newcommand{\tdstyle}[1]{\ruggedtodo[inline, color=green!30]{Style: #1}}
 \newcommand\todoin[2][]{\ruggedtodo[inline, caption={2do}, #1]{
-\begin{minipage}{\textwidth-4pt}#2\end{minipage}}}
+                \begin{minipage}{\textwidth-4pt}#2\end{minipage}}}
+
 
 % code
 %\usepackage{listings}
@@ -40,9 +48,11 @@
 \DontPrintSemicolon
 %\RestyleAlgo{algoruled} % ruled, plain
 \SetKwComment{brkcomment}{(}{)}
+\newcommand{\pwrSeries}[1]{\brk[s]*{\brk[s]*{#1}}}
 
+% \usepackage{bibtex}
 %\usepackage[backend=bibtex, style=ieee]{biblatex}
-\usepackage[backend=biber, style=ieee]{biblatex}
+\usepackage[backend=biber, style=ieee, sorting=nyt]{biblatex}
 %\usepackage{biblatex}
 %\addbibresource{mybib.bib}
 
@@ -59,7 +69,11 @@
 \usepackage{mathptmx}
 
 % enumeration
-\usepackage{enumitem}
+\makeatletter
+\@ifclassloaded{beamer}{}{
+    \usepackage{enumitem}
+}
+\makeatother
 
 % color
 \usepackage{transparent}
@@ -82,8 +96,6 @@
 %\usepackage[pdf]{pstricks}
 %\usepackage{import}
 
-
-
 % images
 \usepackage{graphicx}
 \graphicspath{ {./Plots} }
@@ -91,9 +103,10 @@
 % tikz
 \usepackage{tikz}
 \usetikzlibrary{positioning}
+\usetikzlibrary{cd} % commutative diagrams
+
 %\usetikzlibrary{babel}
 \usepackage{pgfplots}
-
 
 
 % Tikz librarys
@@ -101,10 +114,56 @@
 \usetikzlibrary{external}
 \tikzexternalize[prefix=cache/] % activate and define figureCache/ as cache folder
 %\usetikzlibrary{patterns}
-\tikzset{>=stealth}
-\newcommand{\tikzmark}[3][]{\tikzset{external/export=false}\tikz[remember picture,baseline] \node [anchor=base,#1](#2) {$#3$};}
 \usetikzlibrary{datavisualization}
 \usetikzlibrary{datavisualization.formats.functions}
+
+\usepackage{AnnotateFormulas}
+
+% Fixes incompatibility between external and tikzcd
+%\url{https://tex.stackexchange.com/q/171931/86}
+% \usepackage{environ}
+
+% \makeatletter
+% \def\tikzcd@[#1]{%
+%   \begin{tikzpicture}[/tikz/commutative diagrams/.cd,every diagram,#1]%
+%   \ifx\arrow\tikzcd@arrow%
+%     \pgfutil@packageerror{tikz-cd}{Diagrams cannot be nested}{}
+%   \fi%
+%   \let\arrow\tikzcd@arrow%
+%   \let\ar\tikzcd@arrow%
+%   \def\rar{\tikzcd@xar{r}}%
+%   \def\lar{\tikzcd@xar{l}}%
+%   \def\dar{\tikzcd@xar{d}}%
+%   \def\uar{\tikzcd@xar{u}}%
+%   \def\urar{\tikzcd@xar{ur}}%
+%   \def\ular{\tikzcd@xar{ul}}%
+%   \def\drar{\tikzcd@xar{dr}}%
+%   \def\dlar{\tikzcd@xar{dl}}%
+%   \global\let\tikzcd@savedpaths\pgfutil@empty%
+%   \matrix[/tikz/matrix of \iftikzcd@mathmode math \fi nodes,
+%           /tikz/every cell/.append code={\tikzcdset{every cell}},
+%           /tikz/commutative diagrams/.cd,every matrix]%
+%   \bgroup}
+
+% \def\endtikzcd{%
+%   \pgfmatrixendrow\egroup%
+%   \pgfextra{\global\let\tikzcdmatrixname\tikzlastnode};%
+%   \tikzcdset{\the\pgfmatrixcurrentrow-row diagram/.try}%
+%   \begingroup%
+%     \tikzcd@enablequotes%
+%     \tikzcd@patcherrmsg%
+%     \tikzcd@savedpaths%
+%   \endgroup%
+%   \end{tikzpicture}%
+%   \ifnum0=`{}\fi}
+
+
+% \NewEnviron{mytikzcd}[1][]{%
+%   \def\@temp{\tikzcd@[#1]\BODY}%
+%   \expandafter\@temp\endtikzcd
+% }
+% \makeatother
+
 
 
 
@@ -209,8 +268,6 @@
 \newcommand{\bY}{\mathbb{Y}}
 \newcommand{\bZ}{\mathbb{Z}}
 
-
-
 \newcommand{\hu}{\hat{u}}
 \newcommand{\hv}{\hat{v}}
 \newcommand{\hV}{\hat{V}}
@@ -228,26 +285,48 @@
 \newcommand{\hb}{\hat{b}}
 \newcommand{\hs}{\hat{s}}
 
-
-\newcommand{\tiS}{\tilde{S}}
+\newcommand{\tiA}{\widetilde{A}}
+\newcommand{\tia}{\tilde{a}}
+\newcommand{\tiC}{\widetilde{C}}
+\newcommand{\tiS}{\widetilde{S}}
+\newcommand{\tiU}{\widetilde{U}}
 \newcommand{\tiu}{\tilde{u}}
 \newcommand{\tih}{\tilde{h}}
-\newcommand{\tix}{\tilde{x}}
-\newcommand{\tiy}{\tilde{y}}
+\newcommand{\tip}{\tilde{p}}
+\newcommand{\tiP}{\widetilde{P}}
+\newcommand{\tiq}{\tilde{q}}
+\newcommand{\tiQ}{\tilde{Q}}
 \newcommand{\tis}{\tilde{s}}
-\newcommand{\tie}{\tilde{\e}}
+\newcommand{\tiW}{\widetilde{W}}
+\newcommand{\tix}{\tilde{x}}
+\newcommand{\tiX}{\tilde{X}}
+\newcommand{\tiy}{\tilde{y}}
+\newcommand{\tialpha}{\widetilde{\alpha}}
+\newcommand{\tibeta}{\widetilde{\beta}}
+\newcommand{\tigamma}{\widetilde{\gamma}}
+\newcommand{\tilambda}{\tilde{\lambda}}
+\newcommand{\titheta}{\tilde{\theta}}
 \newcommand{\tisigma}{\tilde{\sigma}}
+\newcommand{\tie}{\tilde{\e}}
+\newcommand{\timu}{\tilde{\mu}}
+\newcommand{\tiSigma}{\widetilde{\Sigma}}
 
-
+\newcommand{\baralpha}{\bar{\alpha}}
+\newcommand{\barbeta}{\bar{\beta}}
+\newcommand{\bargamma}{\bar{\gamma}}
 \newcommand{\bartheta}{\bar{\theta}}
+\newcommand{\barA}{\overline{A}}
 \newcommand{\barU}{\bar{U}}
+\newcommand{\barp}{\bar{p}}
+\newcommand{\barP}{\overline{P}}
+\newcommand{\barW}{\overline{W}}
+\newcommand{\barx}{\bar{x}}
+\newcommand{\bary}{\bar{y}}
 
-
-\newcommand{\BV}{\mathcal{BV\!}}
+\newcommand{\BV}{\mathcal{BV\!}} % Bounded variation
 \newcommand{\ABV}{\mathcal{ABV\!}}
 
-
-\newcommand{\iu}{\mathrm{i}} % optionally followed by \mkern1mu
+\newcommand{\iu}{\mathrm{i}} % imaginary unit, optionally followed by \mkern1mu
 
 
 
@@ -261,12 +340,16 @@
 \newcommand{\vii}[2]{\ensuremath{\begin{bmatrix}#1 \\ #2 \end{bmatrix}}}
 \newcommand{\mii}[4]{\ensuremath{\begin{bmatrix}#1&#2 \\ #3&#4 \end{bmatrix}}}
 \newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\bigslant}[2]{{\raisebox{.2em}{$#1$}\left/\raisebox{-.2em}{$#2$}\right.}}
+\newcommand{\ownresult}{{[$*$]}}
+\newcommand{\bigsetminus}{\mathbin{\big\backslash}}
 
 \newcommand{\one}{\mathds{1}}
 \newcommand{\bigO}{\mathcal{O}}
 \newcommand{\symmDiff}{\bigtriangleup} % \bigtriangleup
 
 
+\DeclareMathOperator{\affine}{aff}			% affine hull
 \DeclareMathOperator{\Image}{Image}
 \DeclareMathOperator{\Vspan}{Span}
 \DeclareMathOperator{\Erf}{erf}
@@ -277,13 +360,19 @@
 \DeclareMathOperator{\im}{im}             % image
 \DeclareMathOperator{\Hom}{Hom}           % homomorphisms
 \DeclareMathOperator{\End}{End}           % endomorphisms
+\DeclareMathOperator{\Hol}{Hol}         % holomorphic functions
 \DeclareMathOperator{\Span}{Span}         % linear span
 \DeclareMathOperator{\grad}{\nabla}         % gradient
 \DeclareMathOperator{\diam}{diam}         % gradient
 \DeclareMathOperator{\Tr}{Tr}       	  % trace
-\DeclareMathOperator{\diver}{Div}			% divergence
+\DeclareMathOperator{\diver}{div}			% divergence
 \DeclareMathOperator{\supp}{supp}			% support
 \DeclareMathOperator{\dist}{dist}			% distance
+\DeclareMathOperator{\tubular}{Tub}       % tubular neighbourhoods
+\DeclareMathOperator{\exterior}{ext}
+\DeclareMathOperator{\closure}{cl}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\relint}{rel\,int} % relative interiour
 \DeclareMathOperator{\inter}{int}			% interior
 \DeclareMathOperator{\epi}{epi}			% epigraph
 \DeclareMathOperator{\hyp}{hyp}			% hypograph
@@ -293,9 +382,10 @@
 \DeclareMathOperator{\BMO}{BMO}			% BMO
 \DeclareMathOperator{\mean}{mean}			% BMO
 \DeclareMathOperator{\prox}{prox}
-\DeclareMathOperator{\closure}{cl}
-\DeclareMathOperator{\exterior}{ext}
-\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\proj}{proj}       % projection
+\DeclareMathOperator{\ind}{Ind}       % index
+\DeclareMathOperator{\essind}{Ind}       % essential index
+\DeclareMathOperator{\critical}{Cr}       % critical set
 \DeclareMathOperator{\curl}{curl}       % curl, rot
 \DeclareMathOperator{\Curl}{Curl}       % curl, rot
 %\DeclareMathOperator{\B}{B}			% BMO
@@ -303,19 +393,23 @@
 
 % \vect{ x // y // z } for a column vector with entries x, y, z
 % similarly for larger vectors
-% in this code:  1 = number of arguments
-%               #1 = first argument
 \newcommand{\vect}[1]{\begin{bmatrix} #1 \end{bmatrix}}
 
 % \conj{z} for complex conjugation
 \newcommand{\conj}{\overline}
 
-%counter of current constant number:    
+%counter of current constant number for those analysis inequalities:   
 \newcounter{constant} 
 %defines a new constant, but does not typeset anything:
 \newcommand{\newconstant}[1]{\refstepcounter{constant}\label{#1}} 
 %typesets named constant:
 \newcommand{\useconstant}[1]{c_{\ref{#1}}}
+
+% definitions
+\newcommand{\leftrightdef}{\stackrel{\text{def}}{=}}
+\newcommand{\leftdef}{\coloneqq}
+\newcommand{\rightdef}{\eqqcolon}
+
 
 
 
@@ -327,22 +421,5 @@
 
 %%%%%%% COLORS %%%%%%%%%%%%%%%%%%%%%%%%
 
-
 \newcommand{\black}{\color{black}}
 
-
-%%%%%% TITLE PAGE
-
-
-%%%%%% The content starts here %%%%%%%%%%%%%
-%
-%
-%\begin{document}
-%
-%\maketitle
-%
-%
-%%\nocite{*}
-%\printbibliography
-%
-%\end{document}

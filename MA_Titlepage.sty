@@ -1,0 +1,76 @@
+% The following is a slight modification of the bachelor thesis template from Bonn university
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{MA_Titlepage}[2024/02/08]
+
+%%%%%%%%%%%%%%%%
+% Titelseite:
+%%%%%%%%%%%%%%%%
+\newcommand*{\supervisor}[1]{\def\@supervisor{#1}}
+\supervisor{}
+\newcommand*{\examinor}[1]{\def\@examinor{#1}}
+\examinor{}
+\newcommand*{\documenttype}[1]{\def\@documenttype{#1}}
+\documenttype{}
+\newcommand*{\birthdate}[1]{\def\@birthdate{#1}}
+\birthdate{}
+\newcommand*{\birthplace}[1]{\def\@birthplace{#1}}
+\birthplace{}
+\newcommand*{\institute}[1]{\def\@institute{#1}}
+\institute{}
+
+\renewcommand\maketitle{\begin{titlepage}%
+  \let\footnotesize\small
+  \let\footnoterule\relax
+  \let \footnote \thanks
+  \null\vfil
+
+\begin{center}%
+
+\parbox{10cm}{\centering\huge\bfseries \@title \par}\\
+\vspace{1em}
+{\Large
+\vspace{1em}
+\@author}\\
+\vspace{1em}
+% Geboren am \@birthdate \ in \@birthplace\\
+% \vspace{1em}
+{\large \@date}
+\vspace{10em}
+
+{\large \@documenttype}\\
+\vspace{1em}
+{\large \@supervisor}\\
+\vspace{1em}
+{\large \@examinor}\\
+\vspace{1em}
+\centerline{{\large\scshape \@institute}}
+\vspace{10em}
+
+\centerline{{\large\scshape Department of Mathematical Sciences}}
+\vspace{1em}
+\centerline{{\large\scshape Lunds Universitet}}
+
+\end{center}
+
+\vfil\null
+\clearpage
+\thispagestyle{empty}\mbox{}
+\clearpage
+\pagenumbering{arabic}
+
+\end{titlepage}%
+
+  \setcounter{footnote}{0}%
+  \global\let\maketitle\relax
+  \global\let\@author\@empty
+  \global\let\@date\@empty
+  \global\let\@title\@empty
+  \global\let\title\relax
+  \global\let\author\relax
+  \global\let\date\relax
+  \global\let\and\relax
+}
+% END titlepage
+
+\endinput

@@ -1,0 +1,110 @@
+
+\documentclass[toc=bibliography]{scrbook}
+% alternatives: scrartcl, scrreprt, scrbook article or report
+
+
+%%%%% PACKAGES
+
+\input{../Latex_Templates/Declare_Mathops}
+
+\usepackage{MA_Titlepage}
+\usepackage{mdframed}
+
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+
+% \usepackage[intoc]{nomencl}
+% \makenomenclature
+% \renewcommand{\nomname}{List of Symbols}
+
+% theorem-like environments
+% \newcounter{everything}
+% \theoremstyle{plain}
+% \newtheorem{theorem}{Theorem}[chapter]
+% \newtheorem{corollary}[theorem]{Corollary}
+% \newtheorem{proposition}[theorem]{Proposition}
+% \newtheorem{conjecture}[theorem]{Conjecture}
+% \newtheorem{criteria}[theorem]{Criteria}
+% \newtheorem{lemma}[theorem]{Lemma}
+% \theoremstyle{definition}
+% \newtheorem{definition}[theorem]{Definition}
+% \newtheorem{condition}[theorem]{Condition}
+% \newtheorem{problem}[theorem]{Problem}
+% \newtheorem{example}[theorem]{Example}
+% \newtheorem{Exercise}[theorem]{Exercise}
+% \newtheorem{question}[theorem]{Question}
+% \theoremstyle{remark}
+% \newtheorem*{claim}{Claim}
+% \newtheorem*{remark}{Remark}
+% \newtheorem*{note}{Note}
+% \newtheorem*{notation}{Notation}
+% \newtheorem*{summary}{Summary}
+% \newtheorem*{case}{Case}
+% \newtheorem*{conclusion}{Conclusion}
+% \newtheorem*{acknowledgement}{Acknowledgement}
+% \newtheorem*{given}{Given}
+
+\usepackage{theoremEnvironments}
+
+%%%%%%% GENERAL STYLE %%%%%%%%%%%%%%%%%%
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{0}
+
+
+
+\usepackage{pdfpages}
+\usepackage{svg}
+
+\usepackage{makecell}
+\newcounter{symbolCount}
+\newcommand{\nomenclature}[2]{\stepcounter{symbolCount}
+\glsxtrnewsymbol[description={#2}]{\arabic{symbolCount}}{#1}}
+\usepackage[symbols,
+  stylemods={tree},% loads glossaries-extra-stylemods to patch styles
+  record, % using 'bib2gls'
+  nonumberlist
+]{glossaries-extra}
+
+% % assign titles to group labels: 
+% \glsxtrsetgrouptitle{latin}{Latin}
+% \glsxtrsetgrouptitle{greek}{Greek}
+
+% \GlsXtrLoadResources[
+%  src={symbolsList.bib},
+%  type=symbols,
+% %  group={latin},% assign group label
+% %  set-widest,% needed for 'alttree' styles
+%  save-locations=false
+% ]
+
+% \glsxtrnewsymbol[description={velocity}]{v}{\ensuremath{v}}
+
+
+% \newcommand{\unchapter}[2]{
+%     \setcounter{chapter}{#1}
+%     \setcounter{section}{0}
+%     \chapter*{#2}
+%     \addcontentsline{toc}{chapter}{#2}
+% }
+
+
+%%%%%% TITLE PAGE
+%
+%\subject{}
+%\title{}
+%\author{Theo Koppenhöfer}
+%\date{\today}
+%
+%
+%%%%%% The content starts here %%%%%%%%%%%%%
+%
+%
+%\begin{document}
+%
+%\maketitle
+%
+%
+%%\nocite{*}
+%\printbibliography
+%
+%\end{document}

@@ -1,0 +1,35 @@
+% 
+%
+%% Public domain. Originally written by Theo Koppenhöfer 
+% 
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{AnnotateFormulas}[2024/02/23]
+
+\RequirePackage{tikz}
+% compatible with: tikzexternalise
+
+\tikzset{>=stealth}
+% This command is also provided with the tikzmark package
+\newcommand{\tikzmark}[3][]{\tikzset{external/export=false}\tikz[remember picture,baseline] \node [anchor=base,#1](#2) {$#3$};}
+
+\newcounter{@annotateAboveCtr}
+\newcommand{\annotateAbove}[5][]{
+  \stepcounter{@annotateAboveCtr}
+  \tikzmark{annotateAbove_\arabic{@annotateAboveCtr}}{#3}
+  \tikzset{external/export=false}
+  \begin{tikzpicture}[remember picture, overlay, node distance = 0.5cm]
+    \node[,text width=7cm] (annotateAbove_\arabic{@annotateAboveCtr}_descr) [above right= #4cm and #5cm of annotateAbove_\arabic{@annotateAboveCtr}]{#2};
+    \draw[,->,thick] (annotateAbove_\arabic{@annotateAboveCtr}_descr) to [in=90,out=-180] (annotateAbove_\arabic{@annotateAboveCtr});
+  \end{tikzpicture}}
+
+% usage example:
+% \begin{align*}
+%   \\
+%   \norm*{Dg_\rho}_{L^2\brk*{X;\R^d}}^2
+%   &\annotateAbove{\text{divergence Theorem}}{=}{0.1}{0.1} \int_{\Sigma}g_\rho\brk*{\nabla g_\rho\cdot n} \\ \\
+%   &\annotateAbove{\text{Cauchy-Schwarz}}{\leq}{0}{0} \norm*{g_\rho}_{L^2\brk*{\Sigma}}\norm*{\nabla g_\rho\cdot n}_{L^2\brk*{\Sigma}} \\ \\
+%   ...
+% \end{align*}
+
+\endinput
