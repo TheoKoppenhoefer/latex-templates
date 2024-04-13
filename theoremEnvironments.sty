@@ -8,39 +8,53 @@
 
 \RequirePackage{amsthm}
 
-\newcounter{chapter}
+\ifdefined\thechapter\else\newcounter{chapter}\fi
 
 % theorem-like environments
 % \newcounter{everything}
 \theoremstyle{plain}
 \@ifclassloaded{beamer}{}{
   \newtheorem{theorem}{Theorem}[chapter]
+  \newtheorem*{theorem*}{Theorem}
   \newtheorem{corollary}[theorem]{Corollary}
+  \newtheorem*{corollary*}{Corollary}
   \newtheorem{lemma}[theorem]{Lemma}
-  \newtheorem{definition}[theorem]{Definition}
+  \newtheorem*{lemma*}{Lemma}
 }
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{proposition*}{Proposition}
 \newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem*{conjecture*}{Conjecture}
 \newtheorem{criteria}[theorem]{Criteria}
+\newtheorem*{criteria*}{Criteria}
 
 \theoremstyle{definition}
 \newtheorem{condition}[theorem]{Condition}
+\newtheorem*{condition*}{Condtition}
 \@ifclassloaded{beamer}{}{
   \newtheorem{problem}[theorem]{Problem}
+  \newtheorem*{problem*}{Problem}
   \newtheorem{example}[theorem]{Example}
+  \newtheorem*{example*}{Example}
+  \newtheorem{definition}[theorem]{Definition}
+  \newtheorem*{definition*}{Definition}
 }
 \newtheorem{exercise}[theorem]{Exercise}
+\newtheorem*{exercise*}{Exercise}
 \newtheorem{task}[theorem]{Task}
+\newtheorem*{task*}{Task}
 \newtheorem{question}[theorem]{Question}
+\newtheorem*{question*}{Question}
 \newtheorem{answer}[theorem]{Answer}
+\newtheorem*{answer*}{Answer}
 
 \theoremstyle{remark}
 \newtheorem*{claim}{Claim}
 \newtheorem*{remark}{Remark}
 \@ifclassloaded{beamer}{}{
   \newtheorem*{note}{Note}
+  \newtheorem*{solution}{Solution}
 }
-\newtheorem*{solution}{Solution}
 \newtheorem*{notation}{Notation}
 \newtheorem*{summary}{Summary}
 \newtheorem*{case}{Case}
