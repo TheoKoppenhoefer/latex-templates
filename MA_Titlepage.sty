@@ -20,6 +20,10 @@
 \institute{}
 
 \renewcommand\maketitle{\begin{titlepage}%
+
+\tikzset{external/export next=false}
+\tikz[remember picture,overlay] \node[opacity=0.4,inner sep=0pt] at (current page.center){\includegraphics[width=1.8\paperwidth,height=1.6\paperheight]{../Art/centering_003_colorised.pdf}};
+
   \let\footnotesize\small
   \let\footnoterule\relax
   \let \footnote \thanks
@@ -27,7 +31,7 @@
 
 \begin{center}%
 
-\parbox{10cm}{\centering\huge\bfseries \@title \par}\\
+\parbox{10cm}{\centering\huge\@title \par}\\
 \vspace{1em}
 {\Large
 \vspace{1em}
@@ -47,16 +51,16 @@
 \centerline{{\large\scshape \@institute}}
 \vspace{10em}
 
-\centerline{{\large\scshape Department of Mathematical Sciences}}
+\centerline{{\large\scshape Centre for Mathematical Sciences}}
 \vspace{1em}
-\centerline{{\large\scshape Lunds Universitet}}
+\centerline{{\large\scshape Lund University}}
 
 \end{center}
 
 \vfil\null
-\clearpage
-\thispagestyle{empty}\mbox{}
-\clearpage
+% \clearpage
+% \thispagestyle{empty}\mbox{}
+% \clearpage
 \pagenumbering{arabic}
 
 \end{titlepage}%
