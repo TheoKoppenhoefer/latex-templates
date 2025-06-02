@@ -14,7 +14,11 @@
 % \newcounter{everything}
 \theoremstyle{plain}
 \@ifclassloaded{beamer}{}{
-  \newtheorem{theorem}{Theorem}[chapter]
+  \@ifclassloaded{scrartcl}{
+    \newtheorem{theorem}{Theorem}
+  }{
+    \newtheorem{theorem}{Theorem}[chapter]
+  }
   \newtheorem*{theorem*}{Theorem}
   \newtheorem{corollary}[theorem]{Corollary}
   \newtheorem*{corollary*}{Corollary}

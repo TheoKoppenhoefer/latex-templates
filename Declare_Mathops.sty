@@ -31,14 +31,19 @@
 \usepackage{esint}
 
 
+% extend delimset to inner products
+\newcommand{\inner}{\delimpair{<}{[.],}{>}}
+
+
 % Annotation with todonotes
 % The following was inspired by Thomas Renström
 \usepackage[colorinlistoftodos]{todonotes}
 \newcommand{\ruggedtodo}[2][]{\tikzexternaldisable\todo[#1]{#2}\tikzexternalenable}
 \newcommand{\td}[1]{\ruggedtodo[inline]{#1}}
-\newcommand{\tdref}[1]{\ruggedtodo[inline, color=blue!40]{Ref: #1}}
+\newcommand{\tdref}[1]{\ruggedtodo[inline, color=purple!40]{Ref: #1}}
 \newcommand{\tdrewrite}[1]{\ruggedtodo[inline, color=red!40]{Rewrite: #1}}
 \newcommand{\tdstyle}[1]{\ruggedtodo[inline, color=green!30]{Style: #1}}
+\newcommand{\tdidea}[1]{\ruggedtodo[inline, color=blue!40]{Idea: #1}}
 \newcommand\todoin[2][]{\ruggedtodo[inline, caption={2do}, #1]{
                 \begin{minipage}{\textwidth-4pt}#2\end{minipage}}}
 
@@ -207,6 +212,12 @@
 
 %%%%% CUSTOM COMMANDS
 
+% compact embeddings. Copied from Steven Segletes answer in https://tex.stackexchange.com/questions/533934/symbol-of-compactly-embedding
+\usepackage{stackengine,scalerel}
+\newcommand\dhookrightarrow{\mathrel{\ThisStyle{\abovebaseline[-.6\LMex]{%
+  \ensurestackMath{\stackanchor[.15\LMex]{\SavedStyle\hookrightarrow}{%
+  \SavedStyle\hookrightarrow}}}}}}
+
 % real numbers via \R
 % complex numbers via \C
 % general field via \K
@@ -219,6 +230,8 @@
 \def\N{\mathbb{N}}
 \def\H{\mathbb{H}}
 \def\e{\varepsilon}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\RP}{\mathbb{RP}}
 
 \newcommand{\fA}{\mathfrak{A}}
 \newcommand{\fB}{\mathfrak{B}}
@@ -301,60 +314,72 @@
 \newcommand{\bY}{\mathbb{Y}}
 \newcommand{\bZ}{\mathbb{Z}}
 
+\newcommand{\ha}{\hat{a}}
+\newcommand{\hb}{\hat{b}}
+\newcommand{\hA}{\hat{A}}
+\newcommand{\hC}{\hat{C}}
+\newcommand{\hg}{\hat{g}}
+\newcommand{\hl}{\hat{\ell}}
+\newcommand{\hQ}{\hat{Q}}
+\newcommand{\hq}{\hat{q}}
+\newcommand{\hp}{\hat{p}}
+\newcommand{\hR}{\hat{R}}
+\newcommand{\hs}{\hat{s}}
 \newcommand{\hu}{\hat{u}}
 \newcommand{\hv}{\hat{v}}
 \newcommand{\hV}{\hat{V}}
 \newcommand{\hw}{\hat{w}}
 \newcommand{\hW}{\hat{W}}
-\newcommand{\hA}{\hat{A}}
-\newcommand{\hC}{\hat{C}}
-\newcommand{\hR}{\hat{R}}
-\newcommand{\hQ}{\hat{Q}}
-\newcommand{\hq}{\hat{q}}
-\newcommand{\hp}{\hat{p}}
-\newcommand{\hl}{\hat{\ell}}
 \newcommand{\hlambda}{\hat{\lambda}}
-\newcommand{\ha}{\hat{a}}
-\newcommand{\hb}{\hat{b}}
-\newcommand{\hs}{\hat{s}}
 
 \newcommand{\tiA}{\widetilde{A}}
 \newcommand{\tia}{\tilde{a}}
 \newcommand{\tiC}{\widetilde{C}}
+\newcommand{\tiG}{\widetilde{G}}
+\newcommand{\tig}{\tilde{g}}
 \newcommand{\tiS}{\widetilde{S}}
 \newcommand{\tiU}{\widetilde{U}}
 \newcommand{\tiu}{\tilde{u}}
 \newcommand{\tih}{\tilde{h}}
+\newcommand{\tin}{\widetilde{n}}
 \newcommand{\tip}{\tilde{p}}
 \newcommand{\tiP}{\widetilde{P}}
 \newcommand{\tiq}{\tilde{q}}
 \newcommand{\tiQ}{\tilde{Q}}
 \newcommand{\tis}{\tilde{s}}
+\newcommand{\tiv}{\tilde{v}}
 \newcommand{\tiW}{\widetilde{W}}
 \newcommand{\tix}{\tilde{x}}
-\newcommand{\tiX}{\tilde{X}}
+\newcommand{\tiX}{\widetilde{X}}
 \newcommand{\tiy}{\tilde{y}}
 \newcommand{\tialpha}{\widetilde{\alpha}}
 \newcommand{\tibeta}{\widetilde{\beta}}
+\newcommand{\tiGamma}{\widetilde{\Gamma}}
 \newcommand{\tigamma}{\widetilde{\gamma}}
+\newcommand{\tieta}{\tilde{\eta}}
 \newcommand{\tilambda}{\tilde{\lambda}}
 \newcommand{\titheta}{\tilde{\theta}}
 \newcommand{\tisigma}{\tilde{\sigma}}
 \newcommand{\tie}{\tilde{\e}}
 \newcommand{\timu}{\tilde{\mu}}
 \newcommand{\tiSigma}{\widetilde{\Sigma}}
+\newcommand{\tiOmega}{\widetilde{\Omega}}
 
-\newcommand{\baralpha}{\bar{\alpha}}
-\newcommand{\barbeta}{\bar{\beta}}
-\newcommand{\bargamma}{\bar{\gamma}}
-\newcommand{\bartheta}{\bar{\theta}}
 \newcommand{\barA}{\overline{A}}
 \newcommand{\barU}{\bar{U}}
 \newcommand{\barp}{\bar{p}}
 \newcommand{\barP}{\overline{P}}
+\newcommand{\barv}{\overline{v}}
 \newcommand{\barW}{\overline{W}}
 \newcommand{\barx}{\bar{x}}
 \newcommand{\bary}{\bar{y}}
+\newcommand{\baralpha}{\bar{\alpha}}
+\newcommand{\barbeta}{\bar{\beta}}
+\newcommand{\bargamma}{\bar{\gamma}}
+\newcommand{\bartheta}{\bar{\theta}}
+\newcommand{\bareta}{\overline{\eta}}
+
+\newcommand{\barpartial}{\overline{\partial}} % horisontal derivative
 
 \newcommand{\BV}{\mathcal{BV\!}} % Bounded variation
 \newcommand{\ABV}{\mathcal{ABV\!}}
@@ -421,6 +446,11 @@
 \DeclareMathOperator{\critical}{Cr}       % critical set
 \DeclareMathOperator{\curl}{curl}       % curl, rot
 \DeclareMathOperator{\Curl}{Curl}       % curl, rot
+\DeclareMathOperator{\Def}{Def}       % deformation / symmetric gradient
+\DeclareMathOperator{\Sym}{Sym}       % symmetric part
+\DeclareMathOperator{\Skew}{Skew}     % skew part
+\DeclareMathOperator{\Eval}{ev}       % evaluation map
+\DeclareMathOperator{\Cof}{Cof}       % cofactor matrix
 %\DeclareMathOperator{\B}{B}			% BMO
 
 
@@ -455,5 +485,14 @@
 %%%%%%% COLORS %%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\black}{\color{black}}
+\newcommand{\yellow}{\color{yellow}}
+\newcommand{\cyan}{\color{cyan}}
+\newcommand{\purple}{\color{purple}}
+\newcommand{\pink}{\color{pink}}
+\newcommand{\lime}{\color{lime}}
+\newcommand{\magenta}{\color{magenta}}
+\newcommand{\red}{\color{red}}
+\newcommand{\green}{\color{green}}
+\newcommand{\blue}{\color{blue}}
 
 \endinput

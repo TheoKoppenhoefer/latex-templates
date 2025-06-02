@@ -1,9 +1,10 @@
 
 
-\NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{Preamble_Report}[2024/03/24]
+% \NeedsTeXFormat{LaTeX2e}
+% \ProvidesPackage{Preamble_Report}[2024/03/24]
 
-\documentclass{report}
+% \documentclass{report}
+\documentclass{scrartcl}
 % alternatives: scrartcl, article or report
 
 
@@ -13,7 +14,7 @@
 \usepackage{Declare_Mathops}
 
 % Bibliography
-\usepackage[backend=biber, style=ieee, sorting=nyt]{biblatex}
+\usepackage[backend=biber, style=alphabetic, sorting=nyt]{biblatex} % style=ieee, 
 
 % \usepackage[intoc]{nomencl}
 % \makenomenclature
@@ -27,6 +28,17 @@
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{0}
 
+
+
+\usepackage{makecell}
+\newcounter{symbolCount}
+\newcommand{\nomenclature}[2]{\stepcounter{symbolCount}
+\glsxtrnewsymbol[description={#2}]{\arabic{symbolCount}}{#1}}
+\usepackage[symbols,
+  stylemods={tree},% loads glossaries-extra-stylemods to patch styles
+  record, % using 'bib2gls'
+  nonumberlist
+]{glossaries-extra}
 
 %%%%%% TITLE PAGE
 %
