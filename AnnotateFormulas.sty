@@ -7,11 +7,48 @@
 \ProvidesPackage{AnnotateFormulas}[2024/02/23]
 
 \RequirePackage{tikz}
+\RequirePackage{pgf}
 % compatible with: tikzexternalise
 
 \tikzset{>=stealth}
 % This command is also provided with the tikzmark package
 \newcommand{\tikzmark}[3][]{\tikzset{external/export=false}\tikz[remember picture,baseline] \node [anchor=base,#1](#2) {$#3$};}
+
+\pgfkeys{
+  /annotate eqns/.cd,
+  offsetVert/.initial={0.1},
+  offsetHorz/.initial={0.1},
+  textwidth/.initial={7},
+  tip/.initial={above},
+  tail/.initial={right},
+}
+
+% define \inAngle to be 90 if \pgfkeysvalueof{/annotate eqns/tip} is 'above' and -90 else
+\newcommand{\inAngle}{%
+\ifnum\pdfstrcmp{\pgfkeysvalueof{/annotate eqns/tip}}{above}=0
+    90%
+\else
+    -90%
+\fi
+}%
+%
+% define \outAngle to be /180 if \pgfkeysvalueof{/annotate eqns/tail} is 'right' and -180 else
+\newcommand{\outAngle}{%
+\ifnum\pdfstrcmp{\pgfkeysvalueof{/annotate eqns/tail}}{right}=0
+    -180%
+\else
+    0%
+\fi
+}%
+% define \textAlign to be left if \pgfkeysvalueof{/annotate eqns/tail} is 'right' and right else
+\newcommand{\textAlign}{%
+\ifnum\pdfstrcmp{\pgfkeysvalueof{/annotate eqns/tail}}{right}=0
+    left%
+\else
+    right%
+\fi
+}%
+%
 
 \newcounter{@annotateAboveCtr}
 \newcommand{\annotateAbove}[5][]{
@@ -22,13 +59,27 @@
     \node[,text width=7cm] (annotateAbove_\arabic{@annotateAboveCtr}_descr) [above right= #4cm and #5cm of annotateAbove_\arabic{@annotateAboveCtr}]{#2};
     \draw[,->,thick] (annotateAbove_\arabic{@annotateAboveCtr}_descr) to [in=90,out=-180] (annotateAbove_\arabic{@annotateAboveCtr});
   \end{tikzpicture}}
+  % \newcommand{\annotateAbove}[5][default]{def}
+
+\newcommand{\annotateEqn}[3][]{
+  \pgfkeys{/annotate eqns/.cd, #1}
+  %
+  \stepcounter{@annotateAboveCtr}
+  \tikzmark{annotateAbove_\arabic{@annotateAboveCtr}}{#3}
+  \tikzset{external/export=false}
+  \begin{tikzpicture}[remember picture, overlay, node distance = 0.5cm]
+    % \pgfkeysvalueof{/annotate eqns/tip} \pgfkeysvalueof{/annotate eqns/tail}
+    % \pgfkeysvalueof{/annotate eqns/above} \pgfkeysvalueof{/annotate eqns/right}
+    \node[,text width=\pgfkeysvalueof{/annotate eqns/textwidth}cm, align=\textAlign] (annotateAbove_\arabic{@annotateAboveCtr}_descr) [\pgfkeysvalueof{/annotate eqns/tip} \pgfkeysvalueof{/annotate eqns/tail}= \pgfkeysvalueof{/annotate eqns/offsetVert}cm and \pgfkeysvalueof{/annotate eqns/offsetHorz}cm of annotateAbove_\arabic{@annotateAboveCtr}]{#2};
+    \draw[,->,thick] (annotateAbove_\arabic{@annotateAboveCtr}_descr) to [in=\inAngle,out=\outAngle] (annotateAbove_\arabic{@annotateAboveCtr});
+  \end{tikzpicture}}
 
 % usage example:
 % \begin{align*}
 %   \\
 %   \norm*{Dg_\rho}_{L^2\brk*{X;\R^d}}^2
-%   &\annotateAbove{\text{divergence Theorem}}{=}{0.1}{0.1} \int_{\Sigma}g_\rho\brk*{\nabla g_\rho\cdot n} \\ \\
-%   &\annotateAbove{\text{Cauchy-Schwarz}}{\leq}{0}{0} \norm*{g_\rho}_{L^2\brk*{\Sigma}}\norm*{\nabla g_\rho\cdot n}_{L^2\brk*{\Sigma}} \\ \\
+%   &\annotateEqn{divergence Theorem}{=} \int_{\Sigma}g_\rho\brk*{\nabla g_\rho\cdot n} \\ \\
+%   &\annotateEqn{Cauchy-Schwarz}{\leq} \norm*{g_\rho}_{L^2\brk*{\Sigma}}\norm*{\nabla g_\rho\cdot n}_{L^2\brk*{\Sigma}} \\ \\
 %   ...
 % \end{align*}
 
