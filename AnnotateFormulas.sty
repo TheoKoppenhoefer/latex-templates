@@ -70,7 +70,7 @@
   \begin{tikzpicture}[remember picture, overlay, node distance = 0.5cm]
     % \pgfkeysvalueof{/annotate eqns/tip} \pgfkeysvalueof{/annotate eqns/tail}
     % \pgfkeysvalueof{/annotate eqns/above} \pgfkeysvalueof{/annotate eqns/right}
-    \node[,text width=7cm, align=\textAlign] (annotateAbove_\arabic{@annotateAboveCtr}_descr) [\pgfkeysvalueof{/annotate eqns/tip} \pgfkeysvalueof{/annotate eqns/tail}= \pgfkeysvalueof{/annotate eqns/offsetVert}cm and \pgfkeysvalueof{/annotate eqns/offsetHorz}cm of annotateAbove_\arabic{@annotateAboveCtr}]{#2};
+    \node[,text width=\pgfkeysvalueof{/annotate eqns/textwidth}cm, align=\textAlign] (annotateAbove_\arabic{@annotateAboveCtr}_descr) [\pgfkeysvalueof{/annotate eqns/tip} \pgfkeysvalueof{/annotate eqns/tail}= \pgfkeysvalueof{/annotate eqns/offsetVert}cm and \pgfkeysvalueof{/annotate eqns/offsetHorz}cm of annotateAbove_\arabic{@annotateAboveCtr}]{#2};
     \draw[,->,thick] (annotateAbove_\arabic{@annotateAboveCtr}_descr) to [in=\inAngle,out=\outAngle] (annotateAbove_\arabic{@annotateAboveCtr});
   \end{tikzpicture}}
 
@@ -78,8 +78,8 @@
 % \begin{align*}
 %   \\
 %   \norm*{Dg_\rho}_{L^2\brk*{X;\R^d}}^2
-%   &\annotateAbove{\text{divergence Theorem}}{=}{0.1}{0.1} \int_{\Sigma}g_\rho\brk*{\nabla g_\rho\cdot n} \\ \\
-%   &\annotateAbove{\text{Cauchy-Schwarz}}{\leq}{0}{0} \norm*{g_\rho}_{L^2\brk*{\Sigma}}\norm*{\nabla g_\rho\cdot n}_{L^2\brk*{\Sigma}} \\ \\
+%   &\annotateEqn{divergence Theorem}{=} \int_{\Sigma}g_\rho\brk*{\nabla g_\rho\cdot n} \\ \\
+%   &\annotateEqn{Cauchy-Schwarz}{\leq} \norm*{g_\rho}_{L^2\brk*{\Sigma}}\norm*{\nabla g_\rho\cdot n}_{L^2\brk*{\Sigma}} \\ \\
 %   ...
 % \end{align*}
 
